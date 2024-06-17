@@ -75,7 +75,8 @@ def execute(task_args):
     model = AutoModelForSequenceClassification.from_pretrained(
         task_args["model_name"], num_labels=task_args["num_labels"]
     )
-    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    # device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    device = torch.device("mps" if torch.backends.mps.is_available()else "cpu")
     model.to(device)
 
     dataset = load_dataset(task_args["dataset_name"])
